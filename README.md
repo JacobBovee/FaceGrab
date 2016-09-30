@@ -30,4 +30,4 @@ Follow these steps:
 
 ## License
 
-[MIT License](https://github.com/ankitaggarwal011/facebook-image-fetcher/blob/master/LICENSE)
+[MIT License](https://github.com/ankitaggarwal011/FaceGrab/blob/master/LICENSE)
