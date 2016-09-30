@@ -1,5 +1,5 @@
 # FaceGrab
-**A tool to collect public images from Facebook and create an image dataset for learning about computer vision applications like gender recognition, and face detection**
+A tool to collect public images from Facebook and create an image dataset for learning about computer vision applications like gender recognition, and face detection
 
 ## Motivation
 
