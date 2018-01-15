@@ -46,7 +46,7 @@ def genUrl(name):
 def getProfile(photoUrl, saveUrl):
     print "Downloading " + photoUrl + "."
     response = urlopen(photoUrl)
-    if response.geturl() != "https://fbstatic-a.akamaihd.net/rsrc.php/v3/yo/r/UlIqmHJn-SK.gif":
+    if response.geturl() != "https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/UlIqmHJn-SK.gif":
         open(saveUrl, "wb").write(response.read())
         return True
     return False
