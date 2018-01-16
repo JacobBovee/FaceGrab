@@ -24,9 +24,11 @@ SOFTWARE.
 
 import sys
 import os
+import pyexiv2
 from urllib import urlopen
 from datetime import datetime
 from random import randint
+import json
 
 def create_dir(prefix):
     dir_c = os.path.join(os.getcwd(), prefix, datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
@@ -43,11 +45,20 @@ def create_dir(prefix):
 def genUrl(name):
     return "http://graph.facebook.com/picture?id=" + name + "&width=800"
 
+def writeMetadata(photoUrl, url):
+    metadata = pyexiv2.ImageMetadata(photoUrl)
+    metadata.read()
+    metadata['Exif.Photo.UserComment'] = json.dumps({ 'url': url })
+    metadata.write()
+
 def getProfile(photoUrl, saveUrl):
     print "Downloading " + photoUrl + "."
     response = urlopen(photoUrl)
     if response.geturl() != "https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/UlIqmHJn-SK.gif":
-        open(saveUrl, "wb").write(response.read())
+        with open(saveUrl, "wb") as f:
+            f.write(response.read())
+            writeMetadata(saveUrl, response.geturl())
+
         return True
     return False
 
