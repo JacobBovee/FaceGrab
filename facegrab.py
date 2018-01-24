@@ -24,7 +24,10 @@ SOFTWARE.
 
 import sys
 import os
-from urllib import urlopen
+try:
+    from urllib import urlopen
+except ImportError:
+    from urllib.request import urlopen
 from datetime import datetime
 from random import randint
 
@@ -32,11 +35,11 @@ def create_dir(prefix):
     dir_c = os.path.join(os.getcwd(), prefix, datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     try:
         os.makedirs(dir_c)
-    except OSError, e:
+    except OSError as e:
         if e.errno != 17:
             pass
         else:
-            print "Cannot create a folder."
+            print("Cannot create a folder.")
             exit
     return dir_c
 
@@ -44,7 +47,7 @@ def genUrl(name):
     return "http://graph.facebook.com/picture?id=" + name + "&width=800"
 
 def getProfile(photoUrl, saveUrl):
-    print "Downloading " + photoUrl + "."
+    print("Downloading " + photoUrl + ".")
     response = urlopen(photoUrl)
     if response.geturl() != "https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/UlIqmHJn-SK.gif":
         open(saveUrl, "wb").write(response.read())
@@ -61,8 +64,8 @@ def getImages(sizeDataset):
             id += 1
         else:
             id += 10
-    print "\nFace Dataset created in facegrab folder."
-    print "Size: " + str(photoCount)
+    print("\nFace Dataset created in facegrab folder.")
+    print("Size: " + str(photoCount))
     return
 
 def main():
@@ -70,8 +73,8 @@ def main():
     if len(arguments) == 1 and arguments[0].isdigit() and int(arguments[0]) < int(1e7):
         getImages(int(arguments[0]))
     else:
-        print "\nIncorrect arguments."
-        print "Usage: python facegrab.py <dataset size (integer < 10,000,000)>"
+        print("\nIncorrect arguments.")
+        print("Usage: python facegrab.py <dataset size (integer < 10,000,000)>")
     return
 
 if __name__ == "__main__":
